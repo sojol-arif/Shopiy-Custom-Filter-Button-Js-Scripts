@@ -1,0 +1,91 @@
+{% comment %}
+  filter custom from liquid
+{% endcomment %}
+<form id='custom-filter-product-type-form'>
+  {%- for filter in collection.filters -%}
+    {%- if filter.label == 'Maat' -%}
+      <div class="custom-collection-product-type-filter">
+          <div class="page-width">
+            <div class="custom-collection-product-type-filter-wrapper">
+                <h3 class="collection-title-custom">KIES JE MAAT</h3>
+              {%- case filter.type -%}
+                {%- when 'boolean' -%}
+                  <ul class="custom-collection-product-type-filter-list">
+                      <li>
+                        <label for="Filter-{{ filter.param_name }}-{{ filter.true_value.value }}">
+                        <input type="checkbox"
+                          name="{{ filter.param_name }}"
+                          value="{{ filter.true_value.value }}"
+                          id="Filter-{{ filter.param_name }}"
+                          {% if filter.true_value.active -%}checked{%- endif %}
+                          {% if filter.true_value.count == 0 and filter.true_value.active == false -%}disabled{%- endif -%}
+                        >{{ filter.true_value.label }}</label>
+                      </li>
+                      <li>
+                        <label for="Filter-{{ filter.param_name }}-{{ filter.false_value.value }}">
+                        <input type="checkbox"
+                          name="{{ filter.param_name }}"
+                          value="{{ filter.false_value.value }}"
+                          id="Filter-{{ filter.param_name }}"
+                          {% if filter.false_value.active -%}checked{%- endif %}
+                          {% if filter.false_value.count == 0 and filter.false_value.active == false -%}disabled{%- endif %}
+                        >{{ filter.false_value.label }}</label>
+                      </li>
+                  </ul>
+      
+                {%- when 'list' -%}
+                  <ul class="custom-collection-product-type-filter-list">
+                    {%- for filter_value in filter.values -%}
+                      {% if forloop.index == 1 %}
+                        <li>
+                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                         <img src="https://cdn.shopify.com/s/files/1/0555/3225/7315/files/person-1.jpg?v=1723023696">
+                          <input type="checkbox"
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                          {% if filter_value.active -%}checked{%- endif %}
+                          {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                        >
+                          <span>1-Persoons (140x200) </span>
+                        </label>
+                      </li>
+                      {% elsif forloop.index == 2 %}
+                        <li>
+                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                        <img src="https://cdn.shopify.com/s/files/1/0555/3225/7315/files/person-2.jpg?v=1723023657">
+                        <input type="checkbox"
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                          {% if filter_value.active -%}checked{%- endif %}
+                          {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                        >
+                          <span> 2-Persoon (200x200) </span>
+                        </label>
+                      </li>
+                      {% elsif forloop.index == 3 %}
+                        <li>
+                          <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                          <img src="https://cdn.shopify.com/s/files/1/0555/3225/7315/files/list-jumeaux.jpg?v=1723027022">
+                          <input type="checkbox"
+                            name="{{ filter_value.param_name }}"
+                            value="{{ filter_value.value }}"
+                            id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                            {% if filter_value.active -%}checked{%- endif %}
+                            {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                          >
+                            <span> Lits-Jumeaux (240x220) </span>
+                          </label>
+                      </li>
+                      {% endif %}
+                    {%- endfor -%}
+                  </ul>
+      
+              {%- endcase -%}
+            </div>
+          </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</form>
